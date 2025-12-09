@@ -1,0 +1,97 @@
+# ASP.NET Core appsettings ignore
+appsettings.json
+appsettings.*.json
+
+# Sensitive keys
+**/_keys/
+**/_keys/**
+_keys/
+_keys/**
+**/_keys/**
+**/_keys
+
+# CDN and generated assets
+**/cdn/
+**/cdn/**
+cdn/
+cdn/**
+**/cdn/**
+wwwroot/cdn/
+wwwroot/cdn/**
+**/wwwroot/cdn/**
+**/_cdn/
+**/_cdn/**
+_cdn/
+_cdn/**
+**/_cdn/**
+
+# Sitemaps and SEO generated files
+**/sitemaps/
+**/sitemaps/**
+sitemaps/
+sitemaps/**
+**/sitemaps/**
+wwwroot/sitemaps/
+wwwroot/sitemaps/**
+**/wwwroot/sitemaps/**
+**/sitemaps
+
+# Generic block for any _cdn named folders too
+**/_cdn/**
+**/_cdn/
+**/_cdn/**
+
+# Ignore any folders literally named _keys, _cdn, cdn, sitemaps everywhere
+**/_keys/**
+**/_cdn/**
+**/cdn/**
+**/sitemaps/**
+
+# --------------------------------------------------
+
+# Visual Studio ignores
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+bin/**
+obj/
+obj/**
+out/
+out/**
+publish/
+publish/**
+**/bin/**
+**/obj/**
+
+# .NET
+*.dll
+*.exe
+*.pdb
+*.log
+
+# Packages
+packages/
+packages/**
+*.nupkg
+*.snupkg
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Node (varsa)
+node_modules/
+node_modules/**
+npm-debug.log*
+
+# Optional: environment
+.env
+.env.*
+
