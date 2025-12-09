@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageOutputPath>C:\LocalNuGetRepo</PackageOutputPath>
+    <Version>1.0.0</Version>
+    <Authors>Webilim.AI</Authors>
+    <Description>Ollama API Helper Service</Description>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Webilim.AI.Api\Webilim.AI.Api.csproj" />
+  </ItemGroup>
+</Project>
