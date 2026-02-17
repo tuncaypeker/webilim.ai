@@ -2,14 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageOutputPath>C:\LocalNuGetRepo</PackageOutputPath>
+    <PackageId>Webilim.AI.Api.Ollama</PackageId>
+    <Title>Webilim.AI.Api.Ollama</Title>
     <Version>1.0.0</Version>
-    <Authors>Webilim.AI</Authors>
-    <Description>Ollama API Helper Service</Description>
+    <Authors>Tuncay Peker</Authors>
+    <Company>Webilim</Company>
+    <Product>Webilim.AI.Api.Ollama</Product>
+    <Description>Ollama provider implementation for Webilim.AI.Api. Uses shared abstractions to generate AI content through local or remote Ollama API endpoints.</Description>
+    <PackageTags>ai;llm;ollama;api;content-generation;webilim</PackageTags>
+    <PackageProjectUrl>https://github.com/tuncaypeker/webilim.ai</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tuncaypeker/webilim.ai</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright (c) 2025 Webilim</Copyright>
   </PropertyGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\Webilim.AI.Api\Webilim.AI.Api.csproj" />
+    <PackageReference Include="Webilim.AI.Api" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>
