@@ -1,55 +1,77 @@
 # Webilim.AI.Api
 
-A lightweight and unified abstraction layer for sending prompts to multiple AI providers.  
-This library standardizes how you interact with models such as **Gemini**, **Ollama**, and **OpenRouterAI**, using a single interface across all implementations.
+Webilim.AI.Api is a minimal content-generation abstraction for multiple model providers. It exposes a single interface and provides ready-to-use services for Gemini, Ollama (local), and OpenRouter.
 
----
+**What this library does**
+- One interface for generating text content from different providers.
+- Provider-specific implementations that you can swap via dependency injection.
+- Lightweight DTOs and minimal dependencies.
 
-## ✨ Features
+**Included providers**
+- Gemini: `Webilim.AI.Api.Gemini.Service`
+- Ollama (local): `Webilim.AI.Api.Ollama.Service`
+- OpenRouter: `Webilim.AI.Api.OpenRouterAI.Service`
 
-- Unified interface for multiple AI providers  
-- Built-in implementations:
-  - **GeminiService**
-  - **OllamaService**
-  - **OpenRouterService**
-- Provider-agnostic application code  
-- Highly testable (easy to mock)  
-- API keys and configuration injected from outside (DI-friendly)  
-- Minimal dependencies and clean DTO structure  
-- Simple, extendable architecture  
-
----
-
-## 📐 Core Interface
-```
+**Core interface**
+```csharp
 public interface IApiContentGenerator
 {
     Task<ApiContentGeneratorResult> Generate(string prompt);
 }
-````
-
-## 🚀 Quick Start
-
-1️⃣ Register a provider (example: Gemini)
 ```
+
+## Quick start
+
+Register a provider and call `Generate`.
+
+**Gemini**
+```csharp
 builder.Services.AddSingleton<IApiContentGenerator>(sp =>
 {
     var config = sp.GetRequiredService<IConfiguration>();
-    return new GeminiService(config["Gemini:ApiKey"]);
+    return new Webilim.AI.Api.Gemini.Service(config["Gemini:ApiKey"]);
 });
-````
-2️⃣ Send a prompt
 ```
+
+**OpenRouter**
+```csharp
+builder.Services.AddSingleton<IApiContentGenerator>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    return new Webilim.AI.Api.OpenRouterAI.Service(
+        config["OpenRouter:ApiKey"],
+        model: "meta-llama/llama-3.3-8b-instruct:free"
+    );
+});
+```
+
+**Ollama (local)**
+```csharp
+builder.Services.AddSingleton<IApiContentGenerator>(sp =>
+{
+    // Example: http://localhost:11434
+    return new Webilim.AI.Api.Ollama.Service("http://localhost", 11434);
+});
+```
+
+**Use the generator**
+```csharp
 var result = await generator.Generate("Hello!");
 Console.WriteLine(result.Answer);
-````
+```
 
-## 🧪 Testing
+## Configuration notes
+
+- API keys are injected externally (no secrets are stored in this repo).
+- Gemini expects an API key string.
+- OpenRouter expects an API key and optional model name.
+- Ollama expects a base address and port to a local server.
+
+## Testing
 
 Mock the interface without calling real APIs:
-
-```
+```csharp
 var mock = new Mock<IApiContentGenerator>();
 mock.Setup(x => x.Generate(It.IsAny<string>()))
     .ReturnsAsync(new ApiContentGeneratorResult { Answer = "test" });
-````
+```
