@@ -12,6 +12,20 @@ Webilim.AI.Api is a minimal content-generation abstraction for multiple model pr
 - Ollama (local): `Webilim.AI.Api.Ollama.Service`
 - OpenRouter: `Webilim.AI.Api.OpenRouterAI.Service`
 
+**NuGet packages**
+- Core: `Webilim.AI.Api`
+- Gemini: `Webilim.AI.Api.Gemini`
+- Ollama: `Webilim.AI.Api.Ollama`
+- OpenRouter: `Webilim.AI.Api.OpenRouterAI`
+
+**Install**
+```bash
+dotnet add package Webilim.AI.Api
+dotnet add package Webilim.AI.Api.Gemini
+dotnet add package Webilim.AI.Api.Ollama
+dotnet add package Webilim.AI.Api.OpenRouterAI
+```
+
 **Core interface**
 ```csharp
 public interface IApiContentGenerator

@@ -2,6 +2,16 @@
 
 `Webilim.AI.Api.Gemini` is the Google Gemini provider implementation for `Webilim.AI.Api`.
 
+## NuGet package
+
+- `Webilim.AI.Api.Gemini`
+
+## Install
+
+```bash
+dotnet add package Webilim.AI.Api.Gemini
+```
+
 ## What this package includes
 
 - `GeminiService` implementation of `IApiContentGenerator`
