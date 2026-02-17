@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8 d17.14
+VisualStudioVersion = 17.14.36623.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webilim.AI.Api.Gemini", "Webilim.AI.Api.Gemini\Webilim.AI.Api.Gemini.csproj", "{E3C16326-AA0E-455D-9CBC-57FB5C2E1AC0}"
 EndProject
@@ -10,6 +10,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webilim.AI.Api.Ollama", "Webilim.AI.Api.Ollama\Webilim.AI.Api.Ollama.csproj", "{E59CADBA-67E9-48E1-B8F6-10265832CEA5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webilim.AI.Api.OpenRouterAI", "Webilim.AI.Api.OpenRouterAI\Webilim.AI.Api.OpenRouterAI.csproj", "{2860B825-9EA0-4A48-8A25-9E4C9C5A1D6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
