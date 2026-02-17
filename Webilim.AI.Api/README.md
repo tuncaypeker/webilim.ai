@@ -2,6 +2,16 @@
 
 `Webilim.AI.Api` provides the core abstraction for AI content generation in the Webilim ecosystem.
 
+## NuGet package
+
+- `Webilim.AI.Api`
+
+## Install
+
+```bash
+dotnet add package Webilim.AI.Api
+```
+
 ## What this package includes
 
 - `IApiContentGenerator` interface

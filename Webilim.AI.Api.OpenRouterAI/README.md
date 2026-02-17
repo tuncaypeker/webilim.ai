@@ -2,6 +2,16 @@
 
 `Webilim.AI.Api.OpenRouterAI` is the OpenRouter provider implementation for `Webilim.AI.Api`.
 
+## NuGet package
+
+- `Webilim.AI.Api.OpenRouterAI`
+
+## Install
+
+```bash
+dotnet add package Webilim.AI.Api.OpenRouterAI
+```
+
 ## What this package includes
 
 - `OpenRouterService` implementation of `IApiContentGenerator`

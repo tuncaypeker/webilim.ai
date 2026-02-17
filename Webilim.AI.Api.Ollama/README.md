@@ -2,6 +2,16 @@
 
 `Webilim.AI.Api.Ollama` is the Ollama provider implementation for `Webilim.AI.Api`.
 
+## NuGet package
+
+- `Webilim.AI.Api.Ollama`
+
+## Install
+
+```bash
+dotnet add package Webilim.AI.Api.Ollama
+```
+
 ## What this package includes
 
 - `OllamaService` implementation of `IApiContentGenerator`
