@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Webilim.AI.Api.Dto;
 
@@ -9,8 +13,6 @@ namespace Webilim.AI.Api.OpenRouterAI
 {
 	public class Service : IApiContentGenerator
 	{
-		readonly string url = "https://openrouter.ai/api/v1/chat/completions";
-
 		private readonly string _apiKey;
 		private readonly string _model;
 
@@ -32,83 +34,101 @@ namespace Webilim.AI.Api.OpenRouterAI
 		/// <returns></returns>
 		public async Task<ApiContentGeneratorResult> Generate(string prompt)
 		{
-			using var client = new HttpClient
-			{
-				Timeout = TimeSpan.FromSeconds(30)
-			};
-
-			client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
-			//client.DefaultRequestHeaders.Add("HTTP-Referer", "https://seninsiten.com");
-			//client.DefaultRequestHeaders.Add("X-Title", "BenimUygulamam");
-
-			var requestBody = new
-			{
-				model = _model,
-				messages = new[]
-				{
-				new { role = "user", content = prompt }
-			}
-			};
-
-			var json = JsonSerializer.Serialize(requestBody);
-			var content = new StringContent(json, Encoding.UTF8, "application/json");
+			var result = new ApiContentGeneratorResult();
 
 			try
 			{
-				var response = await client.PostAsync(url, content);
+				var url = "https://openrouter.ai/api/v1/chat/completions";
+
+				using var http = new HttpClient();
+
+				http.DefaultRequestHeaders.Authorization =
+					new AuthenticationHeaderValue("Bearer", _apiKey);
+
+				// OpenRouter için önerilen header'lar
+				http.DefaultRequestHeaders.Add("HTTP-Referer", "https://google.com");
+				http.DefaultRequestHeaders.Add("X-Title", "My App");
+
+				var request = new OpenRouterRequest
+				{
+					Model = _model,
+					Messages = new List<Message>
+					{
+						new() { Role = "system", Content = "You are a helpful assistant." },
+						new() { Role = "user", Content = prompt }
+					}
+				};
+
+				var json = JsonSerializer.Serialize(request);
+				using var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+				var response = await http.PostAsync(url, content);
 
 				if (!response.IsSuccessStatusCode)
 				{
-					return new ApiContentGeneratorResult
-					{
-						Succeed = false,
-						ErrorMessage = $"HTTP Hatası: {response.StatusCode}"
-					};
+					result.Succeed = false;
+					result.ErrorMessage =
+						$"HTTP {(int)response.StatusCode} - {await response.Content.ReadAsStringAsync()}";
+					return result;
 				}
 
-				var result = await response.Content.ReadAsStringAsync();
+				var responseJson = await response.Content.ReadAsStringAsync();
+				var openRouterResponse =
+					JsonSerializer.Deserialize<OpenRouterResponse>(responseJson);
 
-				using var doc = JsonDocument.Parse(result);
+				var answer = openRouterResponse?
+					.Choices?
+					.FirstOrDefault()?
+					.Message?
+					.Content;
 
-				// Eğer error alanı varsa
-				if (doc.RootElement.TryGetProperty("error", out var error))
+				if (string.IsNullOrWhiteSpace(answer))
 				{
-					return new ApiContentGeneratorResult
-					{
-						Succeed = false,
-						ErrorMessage = error.GetProperty("message").GetString()
-					};
+					result.Succeed = false;
+					result.ErrorMessage = "Model returned empty response.";
+					return result;
 				}
 
-				// Normal cevap
-				var answer = doc.RootElement
-					.GetProperty("choices")[0]
-					.GetProperty("message")
-					.GetProperty("content")
-					.GetString();
-
-				return (new ApiContentGeneratorResult
-				{
-					Succeed = true,
-					Answer = answer
-				});
-			}
-			catch (TaskCanceledException)
-			{
-				return (new ApiContentGeneratorResult
-				{
-					Succeed = false,
-					ErrorMessage = "İstek zaman aşımına uğradı."
-				});
+				result.Succeed = true;
+				result.Answer = answer;
+				return result;
 			}
 			catch (Exception ex)
 			{
-				return (new ApiContentGeneratorResult
-				{
-					Succeed = false,
-					ErrorMessage = "Genel hata: " + ex.Message
-				});
+				result.Succeed = false;
+				result.ErrorMessage = ex.Message;
+				return result;
 			}
 		}
+	}
+
+	public class OpenRouterRequest
+	{
+		[JsonPropertyName("model")]
+		public string Model { get; set; }
+
+		[JsonPropertyName("messages")]
+		public List<Message> Messages { get; set; }
+	}
+
+	public class Message
+	{
+		[JsonPropertyName("role")]
+		public string Role { get; set; } // system | user | assistant
+
+		[JsonPropertyName("content")]
+		public string Content { get; set; }
+	}
+
+	public class OpenRouterResponse
+	{
+		[JsonPropertyName("choices")]
+		public List<Choice> Choices { get; set; }
+	}
+
+	public class Choice
+	{
+		[JsonPropertyName("message")]
+		public Message Message { get; set; }
 	}
 }
