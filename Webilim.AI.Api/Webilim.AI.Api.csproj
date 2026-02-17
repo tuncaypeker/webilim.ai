@@ -1,10 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageOutputPath>C:\LocalNuGetRepo</PackageOutputPath>
+    <PackageId>Webilim.AI.Api</PackageId>
+    <Title>Webilim.AI.Api</Title>
     <Version>1.0.1</Version>
-    <Authors>Webilim.AI</Authors>
-    <Description>Gemini API Helper Base</Description>
+    <Authors>Tuncay Peker</Authors>
+    <Company>Webilim</Company>
+    <Product>Webilim.AI.Api</Product>
+    <Description>Base abstraction package for AI content generation providers. Defines a shared interface and DTO contract used by Webilim.AI provider implementations such as Gemini, Ollama, and OpenRouter.</Description>
+    <PackageTags>ai;llm;api;content-generation;webilim</PackageTags>
+    <PackageProjectUrl>https://github.com/tuncaypeker/webilim.ai</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tuncaypeker/webilim.ai</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Copyright>Copyright (c) 2025 Webilim</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>
