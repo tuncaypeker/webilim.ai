@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>Webilim.AI.Api.OpenRouterAI</PackageId>
     <Title>Webilim.AI.Api.OpenRouterAI</Title>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Tuncay Peker</Authors>
     <Company>Webilim</Company>
     <Product>Webilim.AI.Api.OpenRouterAI</Product>
